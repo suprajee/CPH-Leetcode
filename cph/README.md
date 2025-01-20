@@ -1,71 +1,104 @@
-# cph README
+# LeetCode Test Runner Extension for VS Code
 
-This is the README for your extension "cph". After writing up a brief description, we recommend including the following sections.
+This Visual Studio Code extension allows you to fetch, test, and debug LeetCode problem solutions directly within your editor. It supports Python and C++ solutions, automates test case fetching from LeetCode problem pages, and verifies your code against test cases.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Fetch LeetCode problem test cases automatically.
+- Supports Python and C++ solutions.
+- Run test cases directly in the editor.
+- View test results and debug outputs.
 
-For example if there is an image subfolder under your extension project workspace:
+## Prerequisites
 
-\!\[feature X\]\(images/feature-x.png\)
+- Visual Studio Code
+- Node.js (to run Puppeteer for fetching problem details)
+- GCC (for compiling C++ code)
+- Python (for running Python code)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Installation
 
-## Requirements
+1. Clone this repository to your local machine:
+   ```bash
+   git clone https://github.com/suprajee/CPH-Leetcode/edit/main/README.md
+   ```
+2. Open the cloned folder in Visual Studio Code.
+3. Install the required Node.js dependencies:
+   ```bash
+   npm install
+   ```
+4. Build and run the extension in VS Code by pressing `F5`.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Usage
 
-## Extension Settings
+1. Open a LeetCode problem in your browser and copy the problem URL.
+2. Open your solution file in VS Code (Python or C++).
+3. Run the `Run Test` command from the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS) and select `Run LeetCode Test`.
+4. Follow the prompts:
+   - Select the language of your solution (Python or C++).
+   - Enter the LeetCode problem URL.
+5. View test results in the VS Code output.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## How It Works
 
-For example:
+1. **Fetching Test Cases:**
+   - The extension uses Puppeteer to scrape input and output test cases from the LeetCode problem page.
+2. **Preparing the Solution:**
+   - For C++ solutions, a main function is auto-generated to call your solution with the test inputs.
+   - For Python solutions, a test script is generated to invoke your solution.
+3. **Running the Tests:**
+   - Executes the solution file (compiled or interpreted) with the test inputs.
+   - Compares the actual output with the expected output to determine test results.
 
-This extension contributes the following settings:
+## Configuration
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- Test cases from LeetCode are fetched automatically.
+- You can provide additional test cases in two optional files:
+  - `user_inputs.txt`: For additional inputs.
+  - `user_outputs.txt`: For corresponding expected outputs.
+  
+Place these files in the root of your workspace.
 
-## Known Issues
+## Development
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+### Folder Structure
 
-## Release Notes
+- **`src/`**: Source code of the extension.
+- **`inputs.txt`** and **`outputs.txt`**: Test case storage (auto-generated).
 
-Users appreciate release notes as you update your extension.
+### Scripts
 
-### 1.0.0
+- `npm install`: Install dependencies.
+- `npm run build`: Build the extension.
 
-Initial release of ...
+### Key Functions
 
-### 1.0.1
+- **`fetchProblemDetails(url: string)`**: Fetches test cases from LeetCode.
+- **`runTests(code: string, inputs: string[], outputs: string[], language: string)`**: Executes and validates tests.
 
-Fixed issue #.
+## Troubleshooting
 
-### 1.1.0
+- **Error: No workspace folder is open.**
+  - Open a folder in VS Code before running the tests.
+- **Error: Unsupported language.**
+  - Ensure your solution file is in Python or C++.
+- **Browser Launch Issues:**
+  - Puppeteer may require additional setup on some systems. Follow [Puppeteer troubleshooting guide](https://pptr.dev/troubleshooting) if you face issues.
 
-Added features X, Y, and Z.
+## Contributing
+
+Contributions are welcome! Please submit issues and pull requests on GitHub.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Acknowledgments
+
+- Inspired by competitive programming workflows and LeetCode problem-solving.
+- Uses Puppeteer for web scraping.
 
 ---
 
-## Following extension guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
